@@ -28,3 +28,4 @@ listOf(
     Ver(16, "3")
 )
     .forEach { include("spigot_v1_${it.minor}_R${it.rel}") }
+include("toothpick")

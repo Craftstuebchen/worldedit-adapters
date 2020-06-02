@@ -19,27 +19,29 @@
 plugins {
     java
 }
-
-subprojects {
-    apply(plugin = "java")
+allprojects {
+    apply(plugin = "maven")
     group = "com.sk89q.worldedit.adapters"
     version = "1.0"
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url = uri("https://maven.enginehub.org/repo/") }
     }
+}
+
+subprojects {
+    apply(plugin = "java")
+
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 
     dependencies {
         implementation("com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT")
     }
-
 }
 
 mapOf(
@@ -51,6 +53,9 @@ mapOf(
     project(":$projectName") {
         dependencies.implementation("org.spigotmc", "spigot", "${ver}-R0.1-SNAPSHOT")
     }
+}
+project(":toothpick") {
+    dependencies.implementation("com.dyescape", "dyescapepaper-server", "1.16.5-R0.1-SNAPSHOT")
 }
 
 tasks.jar {
