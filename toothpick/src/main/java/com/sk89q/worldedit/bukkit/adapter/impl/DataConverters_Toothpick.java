@@ -1,5 +1,23 @@
 package com.sk89q.worldedit.bukkit.adapter.impl;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -15,24 +33,19 @@ import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
-import com.sk89q.jnbt.CompoundTag;
 import com.sk89q.worldedit.util.nbt.BinaryTag;
 
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.FloatTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.util.datafix.DataFixTypes;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.stream.Collectors;
 
 /**
  * Handles converting all Pre 1.13.2 data using the Legacy DataFix System (ported to 1.13.2)
@@ -677,7 +690,7 @@ class DataConverters_Toothpick extends DataFixerBuilder implements com.sk89q.wor
         }
 
         static {
-            Map map = DataInspectorBlockEntity.b;
+            Map<String, String> map = DataInspectorBlockEntity.b;
 
             map.put("minecraft:furnace", "Furnace");
             map.put("minecraft:lit_furnace", "Furnace");
@@ -2379,7 +2392,6 @@ class DataConverters_Toothpick extends DataFixerBuilder implements com.sk89q.wor
         }
 
         public net.minecraft.nbt.CompoundTag convert(net.minecraft.nbt.CompoundTag cmp) {
-            boolean flag = true;
 
             try {
                 net.minecraft.nbt.CompoundTag compoundTag1 = cmp.getCompound("Level");

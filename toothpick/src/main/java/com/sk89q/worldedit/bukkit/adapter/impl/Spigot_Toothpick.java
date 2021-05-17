@@ -730,15 +730,11 @@ public final class Spigot_Toothpick implements BukkitImplAdapter {
     }
 
     private ResourceKey<LevelStem> getWorldDimKey(Environment env) {
-        switch (env) {
-            case NETHER:
-                return LevelStem.NETHER;
-            case THE_END:
-                return LevelStem.END;
-            case NORMAL:
-            default:
-                return LevelStem.OVERWORLD;
-        }
+        return switch (env) {
+            case NETHER -> LevelStem.NETHER;
+            case THE_END -> LevelStem.END;
+            default -> LevelStem.OVERWORLD;
+        };
     }
 
     private static final Set<SideEffect> SUPPORTED_SIDE_EFFECTS = Sets.immutableEnumSet(
@@ -817,12 +813,11 @@ public final class Spigot_Toothpick implements BukkitImplAdapter {
      *
      * @param foreign the foreign tag
      * @return the converted tag
-     * @throws NoSuchFieldException on error
      * @throws SecurityException on error
      * @throws IllegalArgumentException on error
      * @throws IllegalAccessException on error
      */
-    private ListBinaryTag toNativeList(ListTag foreign) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private ListBinaryTag toNativeList(ListTag foreign) throws SecurityException, IllegalArgumentException, IllegalAccessException {
         ListBinaryTag.Builder<BinaryTag> values = ListBinaryTag.builder();
 
         List<?> foreignList;

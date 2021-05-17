@@ -20,7 +20,7 @@ plugins {
     java
 }
 allprojects {
-    apply(plugin = "maven")
+    apply(plugin = "maven-publish")
     group = "com.sk89q.worldedit.adapters"
     version = "1.0"
     repositories {
@@ -35,8 +35,8 @@ subprojects {
 
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_16
+        targetCompatibility = JavaVersion.VERSION_16
     }
 
     dependencies {
